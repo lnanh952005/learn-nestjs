@@ -13,17 +13,18 @@ import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
     UsersModule,
     AuthModule,
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
+      inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get<string>('MONGODB_URL'),
       }),
-      inject: [ConfigService],
     }),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
   ],
+
   controllers: [AppController],
+
   providers: [
     AppService,
     {
@@ -33,4 +34,3 @@ import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
   ],
 })
 export class AppModule {}
-
