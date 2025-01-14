@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
+import { CompaniesModule } from './companies/companies.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    CompaniesModule,
   ],
 
   controllers: [AppController],

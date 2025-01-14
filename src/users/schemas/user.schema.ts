@@ -1,8 +1,11 @@
 import { Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
-import { Document } from 'mongoose';
+import { IsEmail } from "class-validator";
+import mongoose, { Document } from 'mongoose';
 
-@Schema()//model
+@Schema({timestamps: true})//model
 export class User extends Document {
+    
+    @IsEmail()
     @Prop({required: true})
     username: string;
 
@@ -16,16 +19,40 @@ export class User extends Document {
     age: number;
 
     @Prop()
+    gender: string;
+
+    @Prop()
     phone: number;
 
     @Prop()
     address: string;
 
+    @Prop({type: Object})
+    company: {
+        _id: mongoose.Schema.Types.ObjectId,
+        name: string
+    }
+
+    @Prop()
+    role: string;
+
+    @Prop()
+    refreshToken: string;
+
+    @Prop({default: false})
+    deleted: boolean;
+
     @Prop()
     createdAt: Date;
 
-    @Prop({default: Date.now})
+    @Prop()
     updatedAt: Date;
+
+    @Prop()
+    createdBy: string;
+
+    @Prop()
+    updatedBy: string;
 }
 // Tạo schema từ class
-export const UserSchema = SchemaFactory.createForClass(User);
+export const userSchema = SchemaFactory.createForClass(User);
